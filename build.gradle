@@ -6,12 +6,13 @@ allprojects {
 	repositories {
 		mavenLocal()
 		mavenCentral()
+		google()
 	}
 }
 
 apply from: 'modules.gradle'
 
-configure(subprojects.findAll { it.name != 'ios' }) {
+configure(subprojects.findAll {  it.name != 'ios' && it.name != 'android' }) {
 	apply plugin: 'java'
 	apply plugin: 'eclipse'
 	apply plugin: 'idea'
@@ -86,5 +87,5 @@ configure(subprojects.findAll { it.name != 'ios' }) {
 }
 
 task wrapper(type: Wrapper) {
-	gradleVersion = '1.11'
+	gradleVersion = '4.3.1'
 }
