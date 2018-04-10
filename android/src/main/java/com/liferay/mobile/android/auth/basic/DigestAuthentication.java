@@ -22,6 +22,10 @@ import com.squareup.okhttp.Response;
 
 import java.io.IOException;
 import java.net.Proxy;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.impl.auth.DigestScheme;
+import org.apache.http.message.BasicHeader;
+import org.apache.http.message.BasicHttpRequest;
 
 /**
  * @author Silvio Santos
@@ -46,23 +50,23 @@ public class DigestAuthentication extends BasicAuthentication
 
 		try {
 
-//			BasicHeader authenticateHeader = new BasicHeader(
-//				Headers.WWW_AUTHENTICATE,
-//				response.header(Headers.WWW_AUTHENTICATE));
-//
-//			DigestScheme scheme = new DigestScheme();
-//			scheme.processChallenge(authenticateHeader);
-//
-//			BasicHttpRequest basicHttpRequest = new BasicHttpRequest(
-//				request.method(), request.uri().getPath());
-//
-//			UsernamePasswordCredentials credentials =
-//				new UsernamePasswordCredentials(username, password);
-//
-//			String authorizationHeader = scheme.authenticate(
-//				credentials, basicHttpRequest).getValue();
+			BasicHeader authenticateHeader = new BasicHeader(
+				Headers.WWW_AUTHENTICATE,
+				response.header(Headers.WWW_AUTHENTICATE));
 
-//			builder.addHeader(Headers.AUTHORIZATION, authorizationHeader);
+			DigestScheme scheme = new DigestScheme();
+			scheme.processChallenge(authenticateHeader);
+
+			BasicHttpRequest basicHttpRequest = new BasicHttpRequest(
+				request.method(), request.uri().getPath());
+
+			UsernamePasswordCredentials credentials =
+				new UsernamePasswordCredentials(username, password);
+
+			String authorizationHeader = scheme.authenticate(
+				credentials, basicHttpRequest).getValue();
+
+			builder.addHeader(Headers.AUTHORIZATION, authorizationHeader);
 		}
 		catch (Exception e) {
 			throw new IOException(e);
