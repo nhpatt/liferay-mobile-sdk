@@ -6,14 +6,13 @@ buildscript {
 		}
 	}
 	dependencies {
-		classpath 'com.android.tools.build:gradle:3.1.0'
+		classpath 'com.android.tools.build:gradle:3.1.1'
+		classpath 'com.github.dcendents:android-maven-gradle-plugin:2.0'
 	}
 }
 
 apply from: '../formatter.gradle'
 format.workingDir = 'src/main/java'
-
-apply from: '../sdk-builder.gradle'
 
 apply plugin: 'com.android.library'
 
@@ -21,7 +20,7 @@ android {
 	buildToolsVersion '27.0.3'
 	compileSdkVersion 27
 
-	android.defaultConfig.manifestPlaceholders = ['appAuthRedirectScheme': 'YOURSCHEME']
+	android.buildTypes.release.manifestPlaceholders = ['appAuthRedirectScheme': 'YOURSCHEME']
 
 	defaultConfig {
 		minSdkVersion 16
@@ -53,4 +52,42 @@ dependencies {
 
 	testImplementation 'org.json:json:20140107'
 	testImplementation 'junit:junit:4.12'
+}
+
+apply plugin: 'com.github.dcendents.android-maven'
+
+group = 'com.liferay.mobile'
+
+version = '3.1.3'
+
+install {
+	repositories.mavenInstaller {
+		pom {
+			project {
+				packaging 'aar'
+				name 'Liferay mobile SDK'
+				description 'description'
+				url 'https://github.com/liferay/liferay-mobile-sdk'
+
+				licenses {
+					license {
+						name 'GNU Lesser General Public License, version 2.1'
+						url 'http://www.gnu.org/licenses/old-licenses/lgpl-2.1.en.html'
+					}
+				}
+				developers {
+					developer {
+						id 'victorg1991'
+						name 'Victor Galan'
+						email 'gagranta@gmail.com'
+					}
+				}
+				scm {
+					connection 'https://github.com/liferay/liferay-mobile-sdk.git'
+					developerConnection 'https://github.com/liferay/liferay-mobile-sdk'
+					url 'https://github.com/liferay/liferay-mobile-sdk'
+				}
+			}
+		}
+	}
 }

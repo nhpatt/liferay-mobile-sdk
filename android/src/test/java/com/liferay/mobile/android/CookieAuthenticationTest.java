@@ -14,7 +14,9 @@
 
 package com.liferay.mobile.android;
 
+import android.util.Log;
 import com.liferay.mobile.android.auth.CookieSignIn;
+import com.liferay.mobile.android.auth.OAuth2SignIn;
 import com.liferay.mobile.android.auth.basic.CookieAuthentication;
 import com.liferay.mobile.android.service.Session;
 import com.liferay.mobile.android.service.SessionImpl;
@@ -22,6 +24,7 @@ import com.liferay.mobile.android.v7.group.GroupService;
 
 import java.io.IOException;
 
+import java.util.Collections;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
@@ -110,5 +113,31 @@ public class CookieAuthenticationTest extends BaseTest {
         assertNotEquals(authToken, authentication.getAuthToken());
         GroupServiceTest.assertUserSites(userSites);
     }
+
+    @Test
+    public void test() {
+
+		Session session = new SessionImpl("https://liferay-oauth2.wedeploy.io/");
+
+	    try {
+		    Session session1 = OAuth2SignIn.signInWithUsernameAndPassword("test@liferay.com", "r3m3mb3r", session, "12345", "12345", Collections.<String>emptyList(), null);
+		    Log.d("a", session1.toString());
+	    } catch (Exception e) {
+		    e.printStackTrace();
+	    }
+    }
+
+	@Test
+	public void test1() {
+
+		Session session = new SessionImpl("https://liferay-oauth2.wedeploy.io/");
+
+		try {
+			Session session1 = OAuth2SignIn.clientCredentialsSignIn(session, "12345", "12345", Collections.<String>emptyList(), null);
+			Log.d("a", session1.toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
 }
