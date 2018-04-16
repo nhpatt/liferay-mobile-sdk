@@ -12,7 +12,7 @@ allprojects {
 
 apply from: 'modules.gradle'
 
-configure(subprojects.findAll {  it.name != 'ios' && it.name != 'android' }) {
+configure(subprojects.findAll {  it.name != 'ios' && it.name != 'android' && it.name != 'myapplication' && it.name != 'mylibrary' }) {
 	apply plugin: 'java'
 	apply plugin: 'eclipse'
 	apply plugin: 'idea'

@@ -1,3 +1,4 @@
+include ':myapplication', ':mylibrary'
 include 'android', 'builder', 'ios'
 
 rootProject.name = 'liferay-mobile-sdk'
