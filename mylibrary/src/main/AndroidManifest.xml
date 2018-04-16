@@ -2,8 +2,20 @@
     package="com.example.mylibrary">
 
 
-    <!--<provide-->
-        <!--android:name="appAuthRedirectScheme"-->
-        <!--android:authorities="${ROOT_APPLICATION_ID}.authority"-->
-        <!--android:exported="false" />-->
+    <application>
+
+        <activity xmlns:tools="http://schemas.android.com/tools"
+            android:name="net.openid.appauth.RedirectUriReceiverActivity"
+            android:exported="true"
+            tools:node="replace">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data android:scheme="https" />
+            </intent-filter>
+        </activity>
+    </application>
 </manifest>
